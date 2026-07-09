@@ -1,10 +1,6 @@
 import path from "node:path";
 import "dotenv/config";
-import { defineConfig, env } from "prisma/config";
-
-type Env = {
-  DATABASE_URL: string;
-};
+import { defineConfig } from "prisma/config";
 
 export default defineConfig({
   schema: path.join(__dirname, "prisma", "schema.prisma"),
@@ -13,6 +9,8 @@ export default defineConfig({
     seed: "npx tsx prisma/seed.ts",
   },
   datasource: {
-    url: env<Env>("DATABASE_URL"),
+    url:
+      process.env.DATABASE_URL ??
+      "mysql://placeholder:placeholder@localhost:4000/placeholder",
   },
 });
