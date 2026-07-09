@@ -1,0 +1,48 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+collections:
+  - name: "articles"
+    label: "Artikel"
+    folder: "content/articles"
+    create: true
+    extension: mdx
+    format: yaml
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "/articles/{{slug}}"
+    fields:
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Tanggal", name: "date", widget: "datetime" }
+      - { label: "Penulis", name: "author", widget: "string" }
+      - label: "Kategori"
+        name: "category"
+        widget: "select"
+        options:
+          - "Politik"
+          - "Budaya"
+          - "Ekonomi"
+          - "Pembangunan"
+          - "Sosial"
+      - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - {
+          label: "Cover Image",
+          name: "coverImage",
+          widget: "image",
+          required: false,
+        }
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: false
+      - {
+          label: "Published",
+          name: "published",
+          widget: "boolean",
+          default: true,
+        }
+      - { label: "Konten", name: "body", widget: "markdown" }
