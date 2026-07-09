@@ -21,6 +21,7 @@ function createPrismaClient() {
     ssl: process.env.DB_CA_CERT
       ? { rejectUnauthorized: true, ca: process.env.DB_CA_CERT }
       : { rejectUnauthorized: false },
+    connectTimeout: 10_000,
     connectionLimit: 5,
     idleTimeout: 10_000,
   });
