@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { prisma } from "./prisma";
 import type { UserRole } from "./types";
 import { checkRateLimit } from "./rate-limit";
 
@@ -50,6 +49,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           throw new Error("RATE_LIMITED");
         }
 
+        const { prisma } = await import("./prisma");
         const user = await prisma.user.findUnique({
           where: { email },
         });
