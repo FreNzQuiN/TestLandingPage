@@ -19,12 +19,18 @@ export const DASHBOARD_ROUTES = {
 } as const;
 
 export const CATEGORIES = [
-  "Politik",
-  "Budaya",
-  "Ekonomi",
+  "Berita Desa",
+  "Potensi Desa",
   "Pembangunan",
   "Sosial",
+  "Ekonomi",
 ] as const;
+
+export const VILLAGE_COLORS = {
+  hero: "emerald-800",
+  heroTo: "emerald-950",
+  accent: "amber-500",
+} as const;
 
 export const PBB_MONTHS = [
   "Januari",

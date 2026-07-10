@@ -1,6 +1,8 @@
 import { getArticleBySlug, getAllArticles } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export function generateStaticParams() {
   return getAllArticles().map((a) => ({ slug: a.slug }));
@@ -16,8 +18,28 @@ export default async function ArticlePage({
 
   if (!article) notFound();
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const articleUrl = `${siteUrl}/articles/${article.slug}`;
+  const encodedUrl = encodeURIComponent(articleUrl);
+  const encodedTitle = encodeURIComponent(article.title);
+
   return (
     <article className="container mx-auto px-4 py-12 max-w-3xl">
+      <nav
+        aria-label="Breadcrumb"
+        className="text-sm text-muted-foreground mb-4"
+      >
+        <Link href="/" className="hover:underline">
+          Beranda
+        </Link>
+        <span className="mx-1.5">→</span>
+        <Link href="/articles" className="hover:underline">
+          Artikel
+        </Link>
+        <span className="mx-1.5">→</span>
+        <span>{article.title}</span>
+      </nav>
+
       <Link
         href="/articles"
         className="text-sm text-primary hover:underline mb-6 inline-block"
@@ -35,26 +57,34 @@ export default async function ArticlePage({
       </header>
 
       <div className="prose max-w-none">
-        {article.content.split("\n").map((line, i) => {
-          if (line.startsWith("# "))
-            return (
-              <h1 key={i} className="text-2xl font-bold mt-8 mb-4">
-                {line.slice(2)}
-              </h1>
-            );
-          if (line.startsWith("## "))
-            return (
-              <h2 key={i} className="text-xl font-semibold mt-6 mb-3">
-                {line.slice(3)}
-              </h2>
-            );
-          if (line.trim() === "") return <br key={i} />;
-          return (
-            <p key={i} className="mb-2">
-              {line}
-            </p>
-          );
-        })}
+        <Markdown remarkPlugins={[remarkGfm]}>{article.content}</Markdown>
+      </div>
+
+      <div className="flex flex-wrap gap-2 mt-8">
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-xs"
+        >
+          Facebook
+        </a>
+        <a
+          href={`https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-xs"
+        >
+          WhatsApp
+        </a>
+        <a
+          href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-muted hover:bg-muted/80 px-3 py-1.5 rounded text-xs"
+        >
+          Twitter / X
+        </a>
       </div>
 
       {article.tags && article.tags.length > 0 && (

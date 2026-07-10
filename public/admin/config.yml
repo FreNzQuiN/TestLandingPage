@@ -23,11 +23,11 @@ collections:
         name: "category"
         widget: "select"
         options:
-          - "Politik"
-          - "Budaya"
-          - "Ekonomi"
+          - "Berita Desa"
+          - "Potensi Desa"
           - "Pembangunan"
           - "Sosial"
+          - "Ekonomi"
       - { label: "Excerpt", name: "excerpt", widget: "text" }
       - {
           label: "Cover Image",

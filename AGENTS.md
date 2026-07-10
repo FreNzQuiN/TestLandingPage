@@ -76,7 +76,7 @@ This file is a compass, not a map. It documents stable architectural decisions a
 
 ### Performance Budget
 
-- **Mobile-first.** Pamong works from phone in the field. Desktop for kades.
+- **Mobile-first.** Public and Pamong works from phone. Desktop for kades.
 - **Lazy load heavy components.** Map (Leaflet), charts (Recharts), PDF generation (jsPDF) — all dynamically imported where possible.
 - **No unnecessary re-renders.** Server components by default, client components only when interactivity required.
 

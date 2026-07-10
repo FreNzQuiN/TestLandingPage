@@ -73,7 +73,19 @@ export interface Article extends ArticleFrontmatter {
 
 export interface VillageProfile {
   name: string;
-  body: string;
+  kecamatan: string;
+  kabupaten: string;
+  provinsi: string;
+  visi: string;
+  misi: string[];
+  administrasi: { label: string; value: string }[];
+  batasWilayah: {
+    utara: string;
+    selatan: string;
+    timur: string;
+    barat: string;
+  };
+  sejarah: string;
 }
 
 export interface HeadMessage {
@@ -138,4 +150,4 @@ export interface MapBlok {
 }
 
 export type Category =
-  "Politik" | "Budaya" | "Ekonomi" | "Pembangunan" | "Sosial";
+  "Berita Desa" | "Potensi Desa" | "Pembangunan" | "Sosial" | "Ekonomi";
